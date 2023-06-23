@@ -148,121 +148,121 @@ class _WalletScreenState extends State<WalletScreen> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.w),
-                            child: SizedBox(
-                              height: 60,
-                              child: TextField(
-                                controller: _addMoneyTextController,
-                                keyboardType: TextInputType.number,
-                                style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500),
-                                decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 10),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: AppColors.primaryColor,
-                                            width: 0.2),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(55))),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: AppColors.primaryColor,
-                                            width: 0.2),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(55))),
-                                    prefixIcon: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          child: Text(
-                                            _userController
-                                                .userData.value.currency!,
-                                            style: TextStyle(
-                                                color: AppColors.primaryColor,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 20.sp),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    hintText: "0",
-                                    hintStyle: TextStyle(
-                                        fontSize: 18.sp,
-                                        fontWeight: FontWeight.w500)),
-                                onChanged: (s) {
-                                  setState(() {});
-                                },
-                              ),
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: EdgeInsets.symmetric(horizontal: 15.w),
+                          //   child: SizedBox(
+                          //     height: 60,
+                          //     child: TextField(
+                          //       controller: _addMoneyTextController,
+                          //       keyboardType: TextInputType.number,
+                          //       style: TextStyle(
+                          //           fontSize: 16.sp,
+                          //           fontWeight: FontWeight.w500),
+                          //       decoration: InputDecoration(
+                          //           contentPadding:
+                          //               EdgeInsets.symmetric(vertical: 10),
+                          //           enabledBorder: OutlineInputBorder(
+                          //               borderSide: BorderSide(
+                          //                   color: AppColors.primaryColor,
+                          //                   width: 0.2),
+                          //               borderRadius: BorderRadius.all(
+                          //                   Radius.circular(55))),
+                          //           focusedBorder: OutlineInputBorder(
+                          //               borderSide: BorderSide(
+                          //                   color: AppColors.primaryColor,
+                          //                   width: 0.2),
+                          //               borderRadius: BorderRadius.all(
+                          //                   Radius.circular(55))),
+                          //           prefixIcon: Row(
+                          //             mainAxisSize: MainAxisSize.min,
+                          //             children: <Widget>[
+                          //               Padding(
+                          //                 padding: EdgeInsets.symmetric(
+                          //                     horizontal: 20),
+                          //                 child: Text(
+                          //                   _userController
+                          //                       .userData.value.currency!,
+                          //                   style: TextStyle(
+                          //                       color: AppColors.primaryColor,
+                          //                       fontWeight: FontWeight.w500,
+                          //                       fontSize: 20.sp),
+                          //                 ),
+                          //               )
+                          //             ],
+                          //           ),
+                          //           hintText: "0",
+                          //           hintStyle: TextStyle(
+                          //               fontSize: 18.sp,
+                          //               fontWeight: FontWeight.w500)),
+                          //       onChanged: (s) {
+                          //         setState(() {});
+                          //       },
+                          //     ),
+                          //   ),
+                          // ),
                           SizedBox(height: 10.h),
-                          InkWell(
-                            onTap: () {
-                              double amount = 0;
-                              if (_addMoneyTextController.text.isEmpty) {
-                                Get.snackbar("Alert", "please_enter_amount".tr,
-                                    backgroundColor: Colors.redAccent.withOpacity(0.8),
-                                    colorText: Colors.white);
-
-                                return;
-                              }
-                              try {
-                                amount = double.parse(
-                                    _addMoneyTextController.text);
-                              } catch (e) {
-                                amount = 0;
-                              }
-                              if (amount < 1) {
-                                Get.snackbar("Alert", "Please_enter_more_when_amount".tr,
-                                    backgroundColor: Colors.redAccent.withOpacity(0.8),
-                                    colorText: Colors.white);
-                                // _baseController.showError(
-                                //     msg: "Please_enter_more_when_amount".tr);
-                                return;
-                              }
-                              _baseController.removeUnFocusManager();
-                              // Get.to(() => PaymentScreen(isAddWalletMoney: true,));
-                              // cont.walletAddMoney(money: _addMoneyTextController.text);
-                              print(
-                                  "uuuurrrr===> ${ApiUrl.BASE_URL}/razorpay_payment_add_money?name=${_userController.userData.value.firstName}&amount=${_addMoneyTextController.text}&user_type=user&user_id=${_userController.userData.value.id}");
-                              Get.to(
-                                () => PaymentWebViewScreen(
-                                    isWallet: true,
-                                    url:
-                                        "${ApiUrl.BASE_URL}/razorpay_payment_add_money?name=${_userController.userData.value.firstName}&amount=${_addMoneyTextController.text}&user_type=user&user_id=${_userController.userData.value.id}"),
-                              );
-                            },
-                            child: Container(
-                              width: double.infinity,
-                              height: 55,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 15.w, vertical: 7.h),
-                              margin: EdgeInsets.symmetric(
-                                horizontal: 30.w,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryColor,
-                                borderRadius: BorderRadius.circular(15.r),
-                                boxShadow: [
-                                  AppBoxShadow.defaultShadow(),
-                                ],
-                              ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                "add_amount".tr,
-                                style: TextStyle(
-                                  color: AppColors.white,
-                                  fontSize: 17.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
+                          // InkWell(
+                          //   onTap: () {
+                          //     double amount = 0;
+                          //     if (_addMoneyTextController.text.isEmpty) {
+                          //       Get.snackbar("Alert", "please_enter_amount".tr,
+                          //           backgroundColor: Colors.redAccent.withOpacity(0.8),
+                          //           colorText: Colors.white);
+                          //
+                          //       return;
+                          //     }
+                          //     try {
+                          //       amount = double.parse(
+                          //           _addMoneyTextController.text);
+                          //     } catch (e) {
+                          //       amount = 0;
+                          //     }
+                          //     if (amount < 1) {
+                          //       Get.snackbar("Alert", "Please_enter_more_when_amount".tr,
+                          //           backgroundColor: Colors.redAccent.withOpacity(0.8),
+                          //           colorText: Colors.white);
+                          //       // _baseController.showError(
+                          //       //     msg: "Please_enter_more_when_amount".tr);
+                          //       return;
+                          //     }
+                          //     _baseController.removeUnFocusManager();
+                          //     // Get.to(() => PaymentScreen(isAddWalletMoney: true,));
+                          //     // cont.walletAddMoney(money: _addMoneyTextController.text);
+                          //     print(
+                          //         "uuuurrrr===> ${ApiUrl.BASE_URL}/razorpay_payment_add_money?name=${_userController.userData.value.firstName}&amount=${_addMoneyTextController.text}&user_type=user&user_id=${_userController.userData.value.id}");
+                          //     Get.to(
+                          //       () => PaymentWebViewScreen(
+                          //           isWallet: true,
+                          //           url:
+                          //               "${ApiUrl.BASE_URL}/razorpay_payment_add_money?name=${_userController.userData.value.firstName}&amount=${_addMoneyTextController.text}&user_type=user&user_id=${_userController.userData.value.id}"),
+                          //     );
+                          //   },
+                          //   child: Container(
+                          //     width: double.infinity,
+                          //     height: 55,
+                          //     padding: EdgeInsets.symmetric(
+                          //         horizontal: 15.w, vertical: 7.h),
+                          //     margin: EdgeInsets.symmetric(
+                          //       horizontal: 30.w,
+                          //     ),
+                          //     decoration: BoxDecoration(
+                          //       color: AppColors.primaryColor,
+                          //       borderRadius: BorderRadius.circular(15.r),
+                          //       boxShadow: [
+                          //         AppBoxShadow.defaultShadow(),
+                          //       ],
+                          //     ),
+                          //     alignment: Alignment.center,
+                          //     child: Text(
+                          //       "add_amount".tr,
+                          //       style: TextStyle(
+                          //         color: AppColors.white,
+                          //         fontSize: 17.sp,
+                          //         fontWeight: FontWeight.w500,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -328,7 +328,7 @@ class _WalletScreenState extends State<WalletScreen> {
                             ),
                           ),
                           Text(
-                            "500 Touk Touk points = 100 Rupees in your wallet.",
+                            "500 Touk Touk points = 100 ${_userController.userData.value.currency} in your wallet.",
                             style: TextStyle(
                               color: AppColors.primaryColor,
                               fontSize: 13.sp,

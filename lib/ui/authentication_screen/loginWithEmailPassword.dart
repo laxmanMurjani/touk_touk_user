@@ -1,5 +1,6 @@
 import 'package:etoUser/controller/user_controller.dart';
 import 'package:etoUser/enum/error_type.dart';
+import 'package:etoUser/ui/authentication_screen/login_screen.dart';
 import 'package:etoUser/ui/authentication_screen/sign_up_screen.dart';
 import 'package:etoUser/ui/widget/custom_button.dart';
 import 'package:etoUser/ui/widget/no_internet_widget.dart';
@@ -49,39 +50,39 @@ class _LoginWithEmailPasswordState extends State<LoginWithEmailPassword> {
                   Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.46,
-                        width: double.infinity,
-                        child: Image.asset(
-                          'assets/images/bottom_home.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: 'By Continuing, You Agree to our ',
-                          style: TextStyle(
-                              color: AppColors.primaryColor, fontSize: 10),
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: '\nTerms of use ',
-                                style: TextStyle(
-                                    color: Color(0xff297FFF), fontSize: 10)),
-                            TextSpan(
-                              text: 'and',
-                            ),
-                            TextSpan(
-                                text: '  Privacy Policy',
-                                style: TextStyle(
-                                    color: Color(0xff297FFF), fontSize: 10)),
-                          ],
-                        ),
-                      ),
+                      // Container(
+                      //   height: MediaQuery.of(context).size.height * 0.46,
+                      //   width: double.infinity,
+                      //   child: Image.asset(
+                      //     'assets/images/bottom_home.png',
+                      //     fit: BoxFit.cover,
+                      //   ),
+                      // ),
+                      // RichText(
+                      //   text: TextSpan(
+                      //     text: 'By Continuing, You Agree to our ',
+                      //     style: TextStyle(
+                      //         color: AppColors.primaryColor, fontSize: 10),
+                      //     children: <TextSpan>[
+                      //       TextSpan(
+                      //           text: '\nTerms of use ',
+                      //           style: TextStyle(
+                      //               color: Color(0xff297FFF), fontSize: 10)),
+                      //       TextSpan(
+                      //         text: 'and',
+                      //       ),
+                      //       TextSpan(
+                      //           text: '  Privacy Policy',
+                      //           style: TextStyle(
+                      //               color: Color(0xff297FFF), fontSize: 10)),
+                      //     ],
+                      //   ),
+                      // ),
                       Align(
                           alignment: Alignment.bottomCenter,
                           child: Image.asset(
-                            AppImage.building,
-                            color: Colors.black.withOpacity(0.15),
+                            AppImage.login3,
+                            //color: Colors.black.withOpacity(0.15),
                           )),
                     ],
                   ),
@@ -98,7 +99,7 @@ class _LoginWithEmailPasswordState extends State<LoginWithEmailPassword> {
                         SizedBox(
                           height: 20,
                         ),
-                        Container(height: 120, child: ClipRRect(borderRadius: BorderRadius.circular(30),
+                        Container(height: 120, child: ClipRRect(borderRadius: BorderRadius.circular(100),
                             child: Image.asset(AppImage.logoMain))),
                         SizedBox(
                           height: 20,
@@ -182,32 +183,37 @@ class _LoginWithEmailPasswordState extends State<LoginWithEmailPassword> {
                         //   //readOnly: readOnly,
                         // ),
 
-                        CustomTextFiled(
-                          controller: cont.phoneNumberController,
-                          hint: "phone".tr,
-                          label: "phone".tr,
-                          inputType: TextInputType.number,
-                        ),
-                        SizedBox(height: 15.h),
-                        CustomTextFiled(
-                          controller: cont.passwordController,
-                          hint: "password".tr,
-                          label: "password".tr,
-                          isPassword: true,
-                        ),
+                        // CustomTextFiled(
+                        //   controller: cont.phoneNumberController,
+                        //   hint: "phone".tr,
+                        //   label: "phone".tr,
+                        //   inputType: TextInputType.number,
+                        // ),
+                        cusTextField(cont.phoneNumberController, 'phone'.tr, false, TextInputType.number, false),
+                        SizedBox(height: 10.h),
+                        // CustomTextFiled(
+                        //   controller: cont.passwordController,
+                        //   hint: "password".tr,
+                        //   label: "password".tr,
+                        //   isPassword: true,
+                        // ),
+                        cusTextField(cont.passwordController, 'password'.tr, false, TextInputType.text, true),
                         SizedBox(height: 7.h),
                         Align(
                           alignment: Alignment.centerRight,
                           child: InkWell(
                             onTap: () {
-                              cont.forgotPassword();
+                              Get.to(()=> LoginScreen());
+                              //cont.forgotPassword();
                             },
                             child: Padding(
                               padding: EdgeInsets.symmetric(
                                 vertical: 5.h,
+                                horizontal: 10.h
                               ),
                               child: Text(
-                                "forgot_password".tr,
+                                'login_via_otp'.tr,
+                                //"forgot_password".tr,
                                 style: TextStyle(
                                     fontSize: 13.sp, fontWeight: FontWeight.w600),
                               ),
@@ -238,12 +244,12 @@ class _LoginWithEmailPasswordState extends State<LoginWithEmailPassword> {
                         //     cont.sendOtp(params: params);
                         //   },
                         // ),
-                        SizedBox(height: 25.h),
-                        Text(
-                          'Or',
-                          style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
+                        // SizedBox(height: 25.h),
+                        // Text(
+                        //   'Or',
+                        //   style:
+                        //   TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                        // ),
                         // SizedBox(height: 25.h),
                         // Row(
                         //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -311,18 +317,18 @@ class _LoginWithEmailPasswordState extends State<LoginWithEmailPassword> {
                         //       ),
                         //   ],
                         // ),
-                        SizedBox(height: 25.h),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
-                          child: CustomButton(
-                            text: "register".tr,
-                            onTap: () {
-                              // cont.registerUser();
-                              Get.to(() => SignUpScreen());
-                            },
-                          ),
-                        ),
-                        SizedBox(height: 40.h),
+                        // SizedBox(height: 25.h),
+                        // Padding(
+                        //   padding: const EdgeInsets.symmetric(horizontal: 30),
+                        //   child: CustomButton(
+                        //     text: "register".tr,
+                        //     onTap: () {
+                        //       // cont.registerUser();
+                        //       Get.to(() => SignUpScreen());
+                        //     },
+                        //   ),
+                        // ),
+                        // SizedBox(height: 40.h),
                       ],
                     ),
                   ],
@@ -428,5 +434,22 @@ class _LoginWithEmailPasswordState extends State<LoginWithEmailPassword> {
         // );
       }),
     );
+  }
+
+  Widget cusTextField(textEdController, hintTxt, firstLetterCapital, keyboardType, isObscured){
+    return Padding(padding: EdgeInsets.symmetric(horizontal: 15,vertical: 8),child:
+    Container(height: 50,width: double.infinity,
+      decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 3),
+              color: Colors.black26,
+              blurRadius: 3,
+            )
+          ]),child: TextField(obscureText: isObscured,keyboardType: keyboardType,controller: textEdController,
+        textCapitalization: firstLetterCapital? TextCapitalization.sentences : TextCapitalization.none,decoration:
+        InputDecoration(border: InputBorder.none,hintText:
+        hintTxt,hintStyle: TextStyle(fontSize: 18),contentPadding:
+        EdgeInsets.only(top: 10,left: 10)),),),);
   }
 }

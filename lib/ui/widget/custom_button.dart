@@ -34,14 +34,14 @@ class _CustomButtonState extends State<CustomButton> {
         }
       },
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
         child: Container(
           width: double.infinity,
           padding: widget.padding ?? EdgeInsets.symmetric(vertical: 12.h),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: widget.bgColor,
-            borderRadius: BorderRadius.circular(5.r),
+            borderRadius: BorderRadius.circular(25.r),
             boxShadow: [
               BoxShadow(
                 color: AppColors.lightGray.withOpacity(0.5),

@@ -402,14 +402,14 @@ class _InvoiceDialogState extends State<InvoiceDialog> {
                                     ),
                                   ),
                                   Expanded(child: Container()),
-                                  Text(
-                                    "change".tr,
-                                    style: TextStyle(
-                                      color: Color(0xff5B96AF),
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 13.sp,
-                                    ),
-                                  ),
+                                  // Text(
+                                  //   "change".tr,
+                                  //   style: TextStyle(
+                                  //     color: Color(0xff5B96AF),
+                                  //     fontWeight: FontWeight.w500,
+                                  //     fontSize: 13.sp,
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),

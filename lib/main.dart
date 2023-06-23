@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:etoUser/overlays/messanger_chathead.dart';
 import 'package:etoUser/util/remote_config_service.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,6 +22,7 @@ import 'package:etoUser/util/app_constant.dart';
 import 'package:etoUser/util/languages.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wakelock/wakelock.dart';
 
 FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
@@ -60,6 +62,7 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  Wakelock.enable();
   FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.instance;
   await RemoteConfigService.setupRemoteConfig();
   AppString.googleMapKey =firebaseRemoteConfig.getString("map_key");
@@ -141,7 +144,17 @@ Future<void> main() async {
   runApp(MyApp());
 
 
+}
 
+@pragma("vm:entry-point")
+void overlayMain() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MessangerChatHead(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget  {

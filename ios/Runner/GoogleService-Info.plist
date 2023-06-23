@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>409063719465-lgjv3pous43kefcebj8c0bl77an98g3n.apps.googleusercontent.com</string>
+	<string>167903828680-g28ejrf20bs34aef2ujst97f33htf4eu.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.409063719465-lgjv3pous43kefcebj8c0bl77an98g3n</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>409063719465-4ojcrli251ogn8tgahb5m4jh8a3ssmu5.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.167903828680-g28ejrf20bs34aef2ujst97f33htf4eu</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBO4CPlvZ_XcJDrtZTaAKciin37fd_Swa8</string>
+	<string>AIzaSyBgelLs_bGCIiSmVUOS1pjwARZX7kWebf4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>409063719465</string>
+	<string>167903828680</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.eto.userMainIos</string>
+	<string>com.touktouk.customer</string>
 	<key>PROJECT_ID</key>
-	<string>eto-motors</string>
+	<string>touk-touk-taxi</string>
 	<key>STORAGE_BUCKET</key>
-	<string>eto-motors.appspot.com</string>
+	<string>touk-touk-taxi.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:409063719465:ios:b30c35b76f3ffe496b5238</string>
+	<string>1:167903828680:ios:37b58f768132b56561a3fd</string>
 	<key>DATABASE_URL</key>
-	<string>https://eto-motors-default-rtdb.firebaseio.com</string>
+	<string>https://touk-touk-taxi-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

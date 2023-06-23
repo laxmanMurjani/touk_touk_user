@@ -9,7 +9,10 @@ import 'package:etoUser/ui/widget/cutom_appbar.dart';
 import 'package:etoUser/ui/widget/no_internet_widget.dart';
 import 'package:etoUser/util/app_constant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../home_screen.dart';
 
@@ -31,10 +34,16 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-    return Scaffold(
-      appBar: CustomAppBar(
-        text: "verification_code".tr,
-      ),
+    return Scaffold(backgroundColor: Colors.white,resizeToAvoidBottomInset: false,
+      appBar: AppBar(backgroundColor: Colors.white,elevation:0,
+        leading: GestureDetector(onTap: (){
+          Get.back();
+        },child: Icon(Icons.arrow_back_ios,color: Colors.black,)),
+        title: Text('verification_code'.tr,style:
+        TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),),centerTitle: true,),
+      // appBar: CustomAppBar(
+      //   text: "verification_code".tr,
+      // ),
       body: GetX<UserController>(builder: (cont) {
         if ((cont.error.value.errorType == ErrorType.internet)) {
           return NoInternetWidget();
@@ -44,8 +53,8 @@ class _OtpScreenState extends State<OtpScreen> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Image.asset(
-                AppImage.building,
-                color: Colors.black.withOpacity(0.1),
+                AppImage.login2,
+                //color: Colors.black.withOpacity(0.1),
               ),
             ),
             Padding(
@@ -55,21 +64,31 @@ class _OtpScreenState extends State<OtpScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 20.h),
+                  ClipRRect(borderRadius: BorderRadius.circular(100),
+                      child: Image.asset(AppImage.logoMain,
+                        height: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.14,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.14,)),
+                  SizedBox(height: 30,),
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
                       text: "Please_type_the_verification_code_sent_to_your".tr,
-                      style: TextStyle(color: Colors.black, fontSize: 18),
+                      style: TextStyle(color: Colors.black, fontSize: 16,fontWeight: FontWeight.w500),
                       children: <TextSpan>[
                         TextSpan(
                             text: 'mobile_number'.tr,
                             style:
-                                TextStyle(color: Colors.black, fontSize: 18)),
+                                TextStyle(color: Colors.black, fontSize: 16,fontWeight: FontWeight.w500)),
                         TextSpan(
                             text: ' ******'+cont.phoneNumberController.text.substring(6),
                             style:
-                                TextStyle(color: Colors.black, fontSize: 18)),
+                                TextStyle(color: Colors.black, fontSize: 16,fontWeight: FontWeight.w500)),
                       ],
                     ),
 
@@ -85,21 +104,23 @@ class _OtpScreenState extends State<OtpScreen> {
                   ),
                   SizedBox(height: 15.h),
                   PinCodeTextField(
+                    autoFocus: true,
                     appContext: context,
                     length: 4,
                     obscureText: false,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     animationType: AnimationType.fade,enableActiveFill: true,
                     keyboardType: TextInputType.number,
-                    boxShadows: [BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3), // changes position of shadow
-                    ),],
+                    boxShadows: [
+                      BoxShadow(
+                        offset: Offset(0, 3),
+                        color: Colors.black26,
+                        blurRadius: 3,
+                      )
+                    ],
                     pinTheme: PinTheme(
                         shape: PinCodeFieldShape.box,
-                        borderRadius: BorderRadius.circular(5),
+                        borderRadius: BorderRadius.circular(15),
                         fieldHeight: 50,
                         borderWidth: 1,
                         fieldWidth: 50,
@@ -231,15 +252,16 @@ class _OtpScreenState extends State<OtpScreen> {
                       }
                     },
                     child: Container(
-                      height: 50,
+                      height: 55,
+                      width: MediaQuery.of(context).size.width*0.7,
                       margin: EdgeInsets.symmetric(horizontal: 50),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           color: AppColors.primaryColor,
-                          borderRadius: BorderRadius.circular(18)),
+                          borderRadius: BorderRadius.circular(30)),
                       child: Text("continue".tr,
                           style:
-                              TextStyle(fontSize: 14.h, color: Colors.white)),
+                              TextStyle(fontSize: 16.h, color: Colors.white,fontWeight: FontWeight.w700)),
                     ),
                   ),
                   SizedBox(height: 20.h),
@@ -248,28 +270,87 @@ class _OtpScreenState extends State<OtpScreen> {
                     children: [
                       Text("didn_t_get_the_OTP".tr,
                           style: TextStyle(
-                            color: AppColors.drawer.withOpacity(0.8),
+                            color: AppColors.drawer.withOpacity(0.8),fontWeight: FontWeight.w500
                           )),
+                      SizedBox(width: 3,),
                       InkWell(
                         onTap: () async {
-                          setState(() {
-                            isResendOtp = true;
-                          });
-                          Map<String, dynamic> params = {};
-                          params["mobile"] = phoneNumber;
-                          params["country_code"] = countryCode;
-                          if(widget.isAuthLogin){
-                            cont.sendOtpWithGoogleSignIn(params: params);
-                          }else{
-                            cont.sendOtp(params: params);
-                            print("otp===> ${_otp}");
+                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                          // await prefs.setInt('resendOtpTimestamp', DateTime.now().millisecondsSinceEpoch);
+                          var millis = await prefs.getInt('resendOtpTimestamp');
+                          print('millis ${millis}');
+
+                          if(millis != null){
+                            // Assuming you have the original time and a timestamp in milliseconds
+                            int originalTimestamp = DateTime.now().millisecondsSinceEpoch;
+                            int? timestamp = millis;
+
+// Create DateTime objects from the timestamps
+                            DateTime originalDateTime = DateTime.fromMillisecondsSinceEpoch(originalTimestamp);
+                            DateTime timestampDateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+
+// Calculate the difference in minutes
+                            Duration difference = timestampDateTime.difference(originalDateTime);
+                            print("ddddd===>${difference}");
+                            int differenceInMinutes = difference.inMinutes * (-1);
+
+// Print the result
+                            print('Difference in minutes: $differenceInMinutes');
+
+                            if(prefs.containsKey('resendOtpCounter') && differenceInMinutes >= 59){
+                              await prefs.remove('resendOtpTimestamp');
+                              await prefs.remove('resendOtpCounter');
+                              print("dbc===L>${differenceInMinutes >= 59}");
+
+                            }
+                            // Get.snackbar('Alert', "'Retry after 6 hours'",
+                            //     backgroundColor: Colors.red.withOpacity(0.8),
+                            //     colorText: Colors.white);
                           }
+
+                          cont.resendOtpCounter.value ++;
+
+                          // cont.resendOtpCounter.value = prefs.getBool(key)
+
+                          if(prefs.containsKey('resendOtpCounter')){
+                            Get.snackbar('Alert', "'Retry after 6 hours'",
+                                backgroundColor: Colors.red.withOpacity(0.8),
+                                colorText: Colors.white);
+                            //print("dbc===L>${differenceInMinutes >= 59}");
+                          }else{
+                            print('counterValue: ${cont.resendOtpCounter.value}');
+                            if(cont.resendOtpCounter.value<=2){
+                              print('resendOtpCounter is less than equal 2');
+                              setState(() {
+                                isResendOtp = true;
+                              });
+                              Map<String, dynamic> params = {};
+                              params["mobile"] = phoneNumber;
+                              params["country_code"] = countryCode;
+                              if(widget.isAuthLogin){
+                                cont.sendOtpWithGoogleSignIn(params: params);
+                              }else{
+                                cont.sendOtp(params: params);
+                                print("otp===> ${_otp}");
+                              }
+                            }else{
+
+                              Get.snackbar('Alert', "'Retry after 6 hours'",
+                                  backgroundColor: Colors.red.withOpacity(0.8),
+                                  colorText: Colors.white);
+                              print('currentTime${DateTime.now().millisecondsSinceEpoch}');
+                              await prefs.setBool('resendOtpCounter', true);
+                              await prefs.setInt('resendOtpTimestamp', DateTime.now().millisecondsSinceEpoch);
+                            }
+                          }
+
+
 
                         },
                         child: Text(
                           "resend_OTP".tr,
                           style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.w500),
+                              color: Colors.black, fontWeight: FontWeight.w700),
                         ),
                       ),
                     ],

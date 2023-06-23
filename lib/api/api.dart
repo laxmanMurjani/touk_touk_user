@@ -30,6 +30,7 @@ class ApiUrl {
   static String facebookLogin = "$apiBaseUrl/auth/facebook";
   static String appleLogin = "$apiBaseUrl/auth/apple";
   static String userDetails = "$apiBaseUrl/details";
+  static String userLatLong = "$apiBaseUrl/user-details";
   static String services = "$apiBaseUrl/services";
   static String fare = "$apiBaseUrl/estimated/fare";
   static String request = "$apiBaseUrl/send/request";

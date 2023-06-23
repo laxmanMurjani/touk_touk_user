@@ -75,10 +75,8 @@ class _LocationScreenState extends State<LocationScreen>
     });
     WidgetsBinding.instance.addObserver(this);
 
-    _homeController.tempLocationFromTo.text =
-        _homeController.locationFromTo.text;
-    _homeController.tempLocationWhereTo1.text =
-        _homeController.locationWhereTo1.text;
+    _homeController.tempLocationFromTo.text = _homeController.locationFromTo.text;
+    _homeController.tempLocationWhereTo1.text = _homeController.locationWhereTo1.text;
     _homeController.isRoundTrip.value = false;
 
     _homeController.tempLatLngFrom = _homeController.latLngFrom;
@@ -267,10 +265,12 @@ class _LocationScreenState extends State<LocationScreen>
                               SizedBox(width: 10.w),
                               InkWell(
                                 onTap: () async {
+
                                   setState(() {
                                     isDriverShow = false;
                                   });
                                   if (isInitLatLng) {
+
                                     if (widget.isSelectOtherAddress!) {
                                       if ((widget.isSelectOtherAddress !=
                                           null ||
@@ -281,6 +281,11 @@ class _LocationScreenState extends State<LocationScreen>
                                         multipleLocationAddModel =
                                         cont.multipleLocationAdModelList[
                                         0];
+
+                                        print("chchchc===>000");
+                                        print("chchchc===>${multipleLocationAddModel.latLng?.latitude}");
+                                        print("chchchc===>${multipleLocationAddModel.latLng?.longitude}");
+
                                         Map<String, String> params = {};
                                         params["address"] =
                                         "${multipleLocationAddModel.textEditingController?.text ?? ""}";
@@ -308,7 +313,8 @@ class _LocationScreenState extends State<LocationScreen>
                                           !widget.isRideLocationUpdate) {
                                         cont.selectedLocationDrawRoute();
                                       }
-                                    } else {
+                                    }
+                                    else {
                                       if ((widget.isSelectHomeAddress !=
                                           null ||
                                           widget.isRideLocationUpdate) &&
@@ -318,6 +324,11 @@ class _LocationScreenState extends State<LocationScreen>
                                         multipleLocationAddModel =
                                         cont.multipleLocationAdModelList[
                                         0];
+
+                                        print("chchchc===>111");
+                                        print("chchchc===>${multipleLocationAddModel.latLng?.latitude}");
+                                        print("chchchc===>${multipleLocationAddModel.latLng?.longitude}");
+
                                         Map<String, String> params = {};
                                         params["address"] =
                                         "${multipleLocationAddModel.textEditingController?.text ?? ""}";

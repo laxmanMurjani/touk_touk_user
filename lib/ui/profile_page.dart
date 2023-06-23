@@ -1,8 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:etoUser/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_overlay_window/flutter_overlay_window.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
 import 'package:etoUser/controller/user_controller.dart';
@@ -514,9 +516,39 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                   ),
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
+                  //
+                  // InkWell(
+                  //   onTap: () {
+                  //     FlutterOverlayWindow.closeOverlay()
+                  //         .then((value) => log('STOPPED: alue: $value'));
+                  //     // _showLogoutDialog();
+                  //   },
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: [
+                  //       Text(
+                  //         'Close overlay'.tr,
+                  //         style: TextStyle(
+                  //             fontSize: 14,
+                  //             color: AppColors.primaryColor),
+                  //       ),
+                  //       Image.asset(
+                  //         AppImage.logout,
+                  //         width: 35,
+                  //         height: 35,
+                  //         fit: BoxFit.contain,
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+
                   SizedBox(
                     height: 20,
                   ),
+
                   InkWell(
                     onTap: () {
                       _showLogoutDialog();

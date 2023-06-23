@@ -7,6 +7,7 @@ class AppImage {
 
   static String logo = "$_basePath/app_logo.png";
   static String logoMain = "$_basePath/toukLogoUser.jpg";
+  static String newRegCar = "$_basePath/newRegCar.jpg";
   static String pastRide = "$_basePath/pastRide.png";
   static String carTexi = "$_basePath/car_texi.png";
   static String point = "$_basePath/point.png";
@@ -122,6 +123,10 @@ class AppImage {
   static String warehouse_icon = "$_basePath/ic_warehouse.png";
   static String verifiedIcon = "$_basePath/1000.png";
   static String circleCheck = "$_basePath/circleCheck.png";
+  static String login2 = "$_basePath/login2.png";
+  static String login3 = "$_basePath/login3.png";
+  static String splashImg = "$_basePath/splashImg.png";
+  static String newSplash = "$_basePath/newSplash.png";
 }
 
 double? latitude, longitude;

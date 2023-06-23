@@ -5,6 +5,8 @@ class Languages extends Translations {
   Map<String, Map<String, String>> get keys {
     return {
       "en_US": {
+        "login_with_pw": "Login with password",
+        "login_via_otp": "Login via OTP",
         "Sorry_for_the_technical_Beakdown" :
         "Sorry for the technical Breakdown issue. We are here to help you. please wait while we resolve.",
         "payment_back":"Your transaction is under process , Are you sure you want to close this tab?",
@@ -31,8 +33,8 @@ class Languages extends Translations {
             "You deserve the best, Connecting you with the best driver",
         "continue": "Continue",
         "please_enter_valid_otp": "Please enter valid OTP",
-        "didn_t_get_the_OTP": "didn`t Get The OTP?",
-        "resend_OTP": "RESEND OTP ",
+        "didn_t_get_the_OTP": "Didn`t Get The OTP?",
+        "resend_OTP": "Resend OTP ",
         "enter_phone": "Enter phone number to continue",
         "phone": "Phone",
         "Please_type_the_verification_code_sent_to_your":
@@ -282,7 +284,9 @@ class Languages extends Translations {
         "taxi": 'taxi',
         "delivery": "delivery",
         "email(optional)": "Email (optional)",
-        "email id (not added)": "email id (not added)"
+        "email id (not added)": "email id (not added)",
+        "join_us": "Join Us Via Phone Number",
+        "enter_yor_phone": "Enter your phone number"
       },
       "hi_IN": {
         "Sorry_for_the_technical_Beakdown" :
@@ -1008,6 +1012,7 @@ class Languages extends Translations {
         "Yes": "Sí"
       },
       "ar_AE":{
+        "login_with_pw": "تسجيل الدخول بكلمة مرور",
         "language": "إنجليزي",
         "forgot_password": "نسيت كلمة المرور",
         "otp": "OTP",
@@ -1217,10 +1222,19 @@ class Languages extends Translations {
         "taxi": 'سيارة اجره',
         "delivery": "توصيل",
         "email(optional)": "البريد الإلكتروني اختياري)",
-        "email id (not added)": "معرف البريد الإلكتروني (غير مضاف)"
+        "email id (not added)": "معرف البريد الإلكتروني (غير مضاف)",
+        "join_us": "انضم إلينا عبر رقم الهاتف",
+        "enter_yor_phone": "أدخل رقم هاتفك",
+        "didn_t_get_the_OTP": "ألم تحصل على OTP؟",
+        "where_would-you_like_to_go?": "أين تريد أن تذهب؟",
+        "enter_destination": "أدخل الوجهة",
+        "delete_account": "حذف الحساب",
+        "login_via_otp": "تسجيل الدخول عبر OTP",
       },
       "hy_AM": {
         "language": "Armenian",
+        "login_via_otp": "Մուտք գործեք OTP-ի միջոցով",
+        "login_with_pw": "Մուտք գործեք գաղտնաբառով",
         "forgot_password": "Մոռացել եք գաղտնաբառը",
         "otp": "օտպ",
         "new_password": "Նոր գաղտնաբառ",
@@ -1465,7 +1479,11 @@ class Languages extends Translations {
         "taxi": "տաքսի",
         "delivery": "առաքում",
         "email(optional)": "Էլփոստ (ըստ ցանկության)",
-        "email id (not added)": "էլփոստի id (ավելացված չէ)"
+        "email id (not added)": "էլփոստի id (ավելացված չէ)",
+        "join_us": "Միացեք մեզ հեռախոսահամարով",
+        "enter_yor_phone": "Մուտքագրեք ձեր հեռախոսահամարը",
+        "didn_t_get_the_OTP": "Չե՞ք ստացել OTP-ն:",
+        "where_would-you_like_to_go?": "Ուր եք ուզում գնալ?",
 
       }
     };

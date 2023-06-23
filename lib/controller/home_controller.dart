@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:math' as math;
+// import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:etoUser/api/api.dart';
 import 'package:etoUser/api/api_service.dart';
 import 'package:etoUser/controller/base_controller.dart';
@@ -156,6 +157,7 @@ class HomeController extends BaseController {
   RxBool isSourceSelect = false.obs;
   RxBool isRideSelected = true.obs;
   TextEditingController addTaskDetailsController = TextEditingController();
+  // ConnectivityResult connectionStatus = ConnectivityResult.none;
 
   @override
   void onInit() {
@@ -485,7 +487,7 @@ class HomeController extends BaseController {
           });
     } catch (e) {
       print(e);
-      showError(msg: e.toString());
+      //showError(msg: e.toString());
     }
   }
 
@@ -568,7 +570,7 @@ class HomeController extends BaseController {
     ByteData data = await rootBundle.load(AppImage.taxi);
 
     ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
-        targetHeight: 80);
+        targetHeight: 50);
     ui.FrameInfo fi = await codec.getNextFrame();
     Uint8List markIcons =
         (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
@@ -581,6 +583,8 @@ class HomeController extends BaseController {
       for(int i=0; i <= showDriverLocationList.length-1; i++){
         ShowDriversLocationModel result = showDriverLocationList[i];
         LatLng latLngMarker = LatLng(result.latitude!, result.longitude!);
+        print('===>>${result.latitude!}');
+        print('===>>${result.longitude!}');
         temo.add(Marker(
           markerId: MarkerId("marker$i"),
           position: latLngMarker,
@@ -1489,6 +1493,48 @@ class HomeController extends BaseController {
       );
     } catch (e) {
       showError(msg: e.toString());
+    }
+  }
+
+  Future<void> getUserLatLong() async {
+    try {
+      showLoader();
+      await apiService.getRequest(
+          url: ApiUrl.userLatLong,
+          onSuccess: (Map<String, dynamic> data) async {
+            dismissLoader();
+            print('getUserLatlong: ${data["response"]}');
+            CameraPosition cameraPosition = CameraPosition(
+              target: LatLng(data['response'].first['latitude'],data['response'].first['longitude']), //s_lat ?? 0, s_lng ?? 0
+              zoom: 10,
+              // zoom: 14.4746,
+            );
+            googleMapInitCameraPosition.value = cameraPosition;
+            // userData.value = UserDetailModel.fromJson(data["response"]);
+            // // Stripe.publishableKey = userData.value.stripePublishableKey ?? "";
+            //
+            // userData.refresh();
+            // log("message   ==>  ${jsonEncode(data)}");
+            // if (isScreenChange) {
+            //   log("message andar chala jata he");
+            //   //Get.offAll(() => HomeScreen());
+            //   String profileStatus = userData.value.profile_status!;
+            //   if(profileStatus == "Not_update"){
+            //     Get.offAll(NewRegistrationScreen());
+            //     //Get.offAll(() => ProfileScreen(isFrom: 1));
+            //   }else{
+            //     Get.offAll(() => HomeScreen());
+            //   }
+            // }
+          },
+          onError: (ErrorType errorType, String? msg) {
+            showError(msg: msg);
+          });
+    } catch (e) {
+      log("message   ==>  ${e}");
+      dismissLoader();
+      // Get.off(() => LoginScreen());
+      // showError(msg: e.toString());
     }
   }
 

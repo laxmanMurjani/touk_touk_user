@@ -18,6 +18,7 @@ import 'package:etoUser/model/wallet_add_model.dart';
 import 'package:etoUser/model/wallet_transaction_model.dart';
 import 'package:etoUser/ui/authentication_screen/forgot_password.dart';
 import 'package:etoUser/ui/authentication_screen/login_screen.dart';
+import 'package:etoUser/ui/authentication_screen/newRegistrationScreen.dart';
 import 'package:etoUser/ui/authentication_screen/otp_screen.dart';
 import 'package:etoUser/ui/authentication_screen/phone_number_screen.dart';
 import 'package:etoUser/ui/authentication_screen/profile_number_otp_screen.dart';
@@ -74,6 +75,8 @@ class UserController extends BaseController {
   RxInt selectedLanguage = 0.obs;
   RxString googleAuthToken = ''.obs;
   RxString facebookAuthToken = ''.obs;
+  RxBool isUserUpdated = false.obs;
+  RxInt resendOtpCounter = 0.obs;
 
   @override
   void onInit() {
@@ -904,7 +907,7 @@ class UserController extends BaseController {
           params: params,
           onSuccess: (Map<String, dynamic> data) {
             dismissLoader();
-            updateProfile();
+            updateProfile(0);
             // userToken.value = LoginResponseModel(
             //     accessToken: data["response"]["success"]["token"],
             //     tokenType: data["response"]["token_type"]);
@@ -1027,7 +1030,14 @@ class UserController extends BaseController {
             log("message   ==>  ${jsonEncode(data)}");
             if (isScreenChange) {
               log("message andar chala jata he");
-              Get.offAll(() => HomeScreen());
+              //Get.offAll(() => HomeScreen());
+              String profileStatus = userData.value.profile_status!;
+              if(profileStatus == "Not_update"){
+                Get.offAll(NewRegistrationScreen());
+                //Get.offAll(() => ProfileScreen(isFrom: 1));
+              }else{
+                Get.offAll(() => HomeScreen());
+              }
             }
           },
           onError: (ErrorType errorType, String? msg) {
@@ -1269,8 +1279,20 @@ class UserController extends BaseController {
     }
   }
 
-  Future<void> updateProfile() async {
+  Future<void> updateProfile(int isFrom) async {
     try {
+      if(firstNameController.text.isEmpty && isFrom == 1){
+        showError(msg: 'Please enter your first name');
+        return;
+      }
+      if(lastNameController.text.isEmpty && isFrom == 1){
+        showError(msg: 'Please enter your last name');
+        return;
+      }
+      if(passwordController.text.isEmpty && isFrom == 1){
+        showError(msg: 'Please enter your password');
+        return;
+      }
       HomeController _homeController = Get.find();
       showLoader();
       Map<String, dynamic> params = {};
@@ -1279,6 +1301,7 @@ class UserController extends BaseController {
       params["email"] = emailController.text;
       params["mobile"] = phoneNumberController.text;
       params["country_code"] = userData.value.countryCode ?? "";
+      params["password"] = passwordController.text;
 
       if (imageFilePah != null) {
         params["picture"] = await dio.MultipartFile.fromFile(imageFilePah!);
@@ -1291,7 +1314,12 @@ class UserController extends BaseController {
             dismissLoader();
             _homeController.isCaptureImage.value = false;
             await getUserProfileData(isScreenChange: false);
-            Get.back();
+            if((isFrom == 1)){
+              Get.offAll(() => HomeScreen());
+            }else{
+              Get.back();
+            }
+            //Get.back();
           },
           onError: (ErrorType errorType, String? msg) {
             showError(msg: msg);

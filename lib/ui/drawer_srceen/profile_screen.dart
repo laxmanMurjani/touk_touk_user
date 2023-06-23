@@ -148,9 +148,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: 15,
                 ),
                 customAppTextFieldWidget(cont.firstNameController,
-                    "first_name".tr, "first_name".tr),
+                    "first_name".tr, "first_name".tr, readOnly: true),
                 customAppTextFieldWidget(
-                    cont.lastNameController, "last_name".tr, "last_name".tr),
+                    cont.lastNameController, "last_name".tr, "last_name".tr, readOnly: true),
                 customAppTextFieldWidget(
                   cont.emailController,
                   "email id (not added)".tr,
@@ -309,7 +309,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     if(_userController.userData.value.mobile!.contains(cont.phoneNumberController.text)){
                       print("same");
-                      cont.updateProfile();
+                      cont.updateProfile(0);
                     } else {
 
                       print("other");
